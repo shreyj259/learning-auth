@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 export default function Login() {
     const emailRef=useRef();
     const passRef=useRef();
-    const {login,logout} = useAuth()
+    const {login} = useAuth()
     const {currentUser} = useAuth();
 
     const handleSubmit=async (e)=>{
@@ -17,14 +17,7 @@ export default function Login() {
         }
     }
 
-    const handleLogout=async(e)=>{
-        e.preventDefault();
-        try{
-            await logout();
-        }catch{
-
-        }
-    }
+    
 
   return (
     <div>
@@ -37,7 +30,7 @@ export default function Login() {
         <button>Submit</button>
         </form>
         <br/>
-        <button onClick={handleLogout}>Logout</button>
+        
     </div>
   )
 }
