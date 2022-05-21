@@ -4,15 +4,16 @@ import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Signup";
 import { AuthProvider } from "./context/AuthContext";
-import Navlinks from './components/Navlinks';
+import './components/style/app.css'
 
 
 
 function App() {
   return (
+    <div className="container">
+    <div className="box">
     <BrowserRouter>
     <AuthProvider>
-      <Navlinks/>
     <Routes>
         <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard/>} />
@@ -22,6 +23,8 @@ function App() {
     </Routes>
     </AuthProvider>
     </BrowserRouter>
+    </div>
+    </div>
   );
 }
 

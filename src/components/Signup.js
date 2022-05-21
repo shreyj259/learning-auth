@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 export default function Signup() {
@@ -9,6 +10,7 @@ export default function Signup() {
     const {signup} = useAuth()
 
     const [error,setError]=useState();
+    const [loading,setLoading]=useState();
 
     const handleSubmit=async (e)=>{
         e.preventDefault();
@@ -19,26 +21,34 @@ export default function Signup() {
           return setError("Password sould be atleast 6 characters long");
         }
         try{
+          setLoading(true);
           setError('');
            await signup(emailRef.current.value,passRef.current.value);
+           setLoading(false);
         }
         catch(err){
+          setLoading(false);
           setError("Failed to Create a new account");
         }
     }
-
+    const printError=<div className="error-box">{error} </div>
   return (
-    <div>
+    <>
+        <div className='heading'>Sign Up</div>
+        {error && printError}
         <form onSubmit={handleSubmit}>
-          {error} <br/>
         <label >Email address</label> <br/>
         <input ref={emailRef} type="email"/> <br/>
         <label >Password</label> <br/>
         <input ref={passRef} /> <br/>
         <label >Renter Password</label> <br/>
         <input ref={passConfirmRef}/> <br/>
-        <button>Submit</button>
+        <button disabled={loading }>Submit</button>
         </form>
-    </div>
+        <div className='bottom-text'>
+        Already Have an account? <br/>
+        <Link to="/login">Sign In</Link>
+        </div>
+    </>
   )
 }
